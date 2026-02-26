@@ -1,175 +1,245 @@
 # 🚀 Dynamic Web Scraper
 
-A full-stack scraping platform built with **React + TypeScript (Vite)** and **FastAPI (Python)**.
+A production-ready full-stack web scraping platform built with **React + TypeScript (Vite)** and **FastAPI (Python)**.
 
-Submit scraping jobs, track progress, validate structured data, and download results — all from a clean dashboard interface.
+It features a contract-driven REST API architecture, real-time job tracking, structured result validation, and a modern dark-themed dashboard for managing scraping operations.
+
+---
+
+## 📸 Screenshots
+
+### Landing Page
+![Landing Page](./screenshots/landing.png)
+
+### Dashboard
+![Dashboard](./screenshots/dashboard.png)
+
+### Job History
+![Job History](./screenshots/history.png)
+
+### Features
+![Features](./screenshots/feature.png)
+
+### How it Works
+![How it Works](./screenshots/work.png)
+
+### Integrations
+![Integrations](./screenshots/integration.png)
 
 ---
 
 ## ✨ Features
 
-- ✅ Submit scraping jobs from a modern dashboard
-- ✅ Real-time job status tracking
-- ✅ Paginated job history view
-- ✅ Structured API contract (Frontend ↔ Backend aligned)
-- ✅ Data quality scoring system
-- ✅ Download endpoint for CSV results (mock)
-- ✅ Fully documented REST API (Swagger)
-- ✅ Clean responsive dark UI
-- ✅ Modular service-layer architecture
+| Feature | Description |
+|----------|-------------|
+| 🎯 **Job Management** | Submit, track, and manage scraping jobs via dashboard |
+| 📊 **Real-time Tracking** | Live progress polling with percentage completion |
+| 📜 **Job History** | Paginated view of all scraping operations |
+| 🔒 **Contract-Driven API** | Strict schema alignment between frontend & backend |
+| 📈 **Data Quality Scoring** | Automated validation scoring for extracted datasets |
+| ⬇️ **Export Results** | Download structured CSV output (mock implementation) |
+| 📚 **Swagger Docs** | Interactive API documentation at `/docs` |
+| 🎨 **Modern UI** | Responsive dark theme built with Tailwind CSS |
 
 ---
 
 ## ⚙️ How It Works
 
-### 1️⃣ Job Submission
-User submits:
-- Target URL
-- Data type
-- Number of pages
-- Headless mode
+### 1️⃣ Submit a Scraping Job
 
 Frontend sends:
 
+```json
+POST /scrape
+{
+  "url": "https://example.com",
+  "data_type": "products",
+  "pages": 5,
+  "headless": true
+}
+```
 
----
-
-### 2️⃣ Backend Processing
 Backend:
-- Generates unique job ID
+- Validates request using Pydantic
+- Generates a unique `job_id`
 - Simulates scraping process
-- Calculates mock data quality score
 - Stores job in memory
 
 ---
 
-### 3️⃣ Status Tracking
+### 2️⃣ Poll Job Status
 
 Frontend polls:
 
+```http
+GET /status/{job_id}
+```
 
-Returns:
-- Progress percentage
-- Records extracted
-- Completion status
+Example Response:
+
+```json
+{
+  "success": true,
+  "status": "completed",
+  "progress_percentage": 100,
+  "records_extracted": 150
+}
+```
 
 ---
 
-### 4️⃣ View Results
+### 3️⃣ View Results
 
-Displays all previously submitted jobs with pagination support.
+```http
+GET /result/{job_id}
+```
+
+Returns:
+- Total records
+- Clean records
+- Data quality breakdown
+- Download URL
+
+---
+
+### 4️⃣ View Job History
+
+```http
+GET /history
+```
+
+Returns paginated job summaries for dashboard display.
 
 ---
 
 ## 🏗 Tech Stack
 
 ### Frontend
-- React
+- React 18
 - TypeScript
 - Vite
-- Axios
 - Tailwind CSS
+- Axios
 - Framer Motion
 
 ### Backend
 - FastAPI
-- Uvicorn
-- Pydantic
 - Python 3.11+
+- Pydantic
+- Uvicorn
 
 ---
 
 ## 🔌 Integrations
 
-- Swagger API documentation (`/docs`)
-- RESTful contract-driven API
-- Axios service layer for structured requests
-- CORS-enabled frontend-backend communication
-- Modular backend route architecture
+| Integration | Purpose |
+|-------------|----------|
+| Swagger UI | Interactive API exploration at `/docs` |
+| OpenAPI Schema | Auto-generated API documentation |
+| CORS Middleware | Secure frontend-backend communication |
+| Axios Service Layer | Centralized API request management |
+| Contract-Driven Architecture | Ensures strict schema alignment |
 
 ---
 
 ## 📂 Project Structure
 
+```
 Dynamic-Web-Scraper/
 │
 ├── frontend/
-│ ├── src/
-│ ├── components/
-│ ├── pages/
-│ └── services/api.ts
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   │   └── api.ts
+│   │   └── hooks/
+│   ├── package.json
+│   └── vite.config.ts
 │
 ├── backend/
-│ ├── main.py
-│ └── requirements.txt
+│   ├── main.py
+│   └── requirements.txt
 │
 └── README.md
-
+```
 
 ---
 
 ## 🚀 Getting Started
 
-### Backend
+### Prerequisites
+
+- Python 3.11+
+- Node.js 18+
+- Git
+
+---
+
+### Backend Setup
 
 ```bash
 cd backend
+
 python -m venv venv
 venv\Scripts\activate   # Windows
+# source venv/bin/activate  # macOS/Linux
+
 pip install -r requirements.txt
+
 python -m uvicorn main:app --reload --port 8000
+```
 
-API Docs:
+API Documentation:
 
+```
 http://localhost:8000/docs
+```
 
-Frontend
+---
+
+### Frontend Setup
+
+```bash
 cd frontend
 npm install
 npm run dev
+```
 
-Frontend:
+Application runs at:
 
+```
 http://localhost:3000
+```
 
+---
 
+## 🧠 Current Version
 
-🧠 Current Version
+This version uses a **mock scraping engine** to demonstrate full-stack workflow and API contract alignment.
 
-This version uses a mock scraping engine for testing the full-stack workflow.
+---
 
-🛣 Roadmap
+## 🛣 Roadmap
 
- Replace mock engine with Selenium execution
+- [ ] Replace mock engine with Selenium or Playwright
+- [ ] Add CSV file generation
+- [ ] Add PostgreSQL database persistence
+- [ ] Implement background job queue (Celery/Redis)
+- [ ] Add JWT authentication
+- [ ] Dockerize full stack
+- [ ] Deploy to cloud infrastructure
 
- Add CSV file generation
+---
 
- Add database persistence (PostgreSQL)
+## 👨‍💻 Author
 
- Add background job queue
+**Ankit Kumar**  
+📧 arsonnick349@gmail.com  
+🐙 GitHub: arsonic-dev
 
- Add authentication
+---
 
- Dockerize application
+## ⭐ If You Like This Project
 
- Deploy production version
-
-
-
-📌 Future Vision
-
-This project is designed to evolve into:
-
-A structured scraping SaaS platform
-
-A scalable data validation engine
-
-A distributed scraping microservice system
-
-
-👨‍💻 Author
-
-Ankit Kumar
-arsonnick349@gmail.com
-arsonic-dev
-Full-stack system built for structured scraping automation and API-driven architecture learning.
+Star the repository and follow the development journey 🚀
