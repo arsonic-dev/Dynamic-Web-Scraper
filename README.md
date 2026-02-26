@@ -1,104 +1,175 @@
-# Dynamic Web Scraper
+# 🚀 Dynamic Web Scraper
 
-A dynamic, AI-orchestrated web scraping system built on a **3-layer architecture** that separates intent, decision-making, and deterministic execution.
+A full-stack scraping platform built with **React + TypeScript (Vite)** and **FastAPI (Python)**.
 
----
-
-## Architecture Overview
-
-```
-┌─────────────────────────────────────────────────────────┐
-│  Layer 1 — Directives (directives/)                     │
-│  Markdown SOPs defining what to do, inputs, outputs     │
-├─────────────────────────────────────────────────────────┤
-│  Layer 2 — Orchestration (AI Agent)                     │
-│  Reads directives, makes decisions, calls scripts       │
-├─────────────────────────────────────────────────────────┤
-│  Layer 3 — Execution (execution/)                       │
-│  Deterministic Python scripts — reliable & testable     │
-└─────────────────────────────────────────────────────────┘
-```
+Submit scraping jobs, track progress, validate structured data, and download results — all from a clean dashboard interface.
 
 ---
 
-## Project Structure
+## ✨ Features
 
-```
-Dynamic Web Scraper/
-├── CLAUDE.md              # Agent instructions & operating principles
-├── README.md              # This file
-├── requirements.txt       # Python dependencies
-├── .env.example           # Environment variable template → copy to .env
-├── .gitignore
-│
-├── directives/            # Layer 1: Markdown SOPs
-│   └── scrape_website.md  # SOP for web scraping tasks
-│
-├── execution/             # Layer 3: Deterministic Python scripts
-│   ├── README.md          # Conventions for writing execution scripts
-│   └── scrape_single_site.py
-│
-├── .tmp/                  # Intermediate files (never committed)
-│
-├── frontend/              # Next.js app (when web app is needed)
-└── backend/               # FastAPI backend (when web app is needed)
-```
+- ✅ Submit scraping jobs from a modern dashboard
+- ✅ Real-time job status tracking
+- ✅ Paginated job history view
+- ✅ Structured API contract (Frontend ↔ Backend aligned)
+- ✅ Data quality scoring system
+- ✅ Download endpoint for CSV results (mock)
+- ✅ Fully documented REST API (Swagger)
+- ✅ Clean responsive dark UI
+- ✅ Modular service-layer architecture
 
 ---
 
-## Quick Start
+## ⚙️ How It Works
 
-### 1. Install Python dependencies
+### 1️⃣ Job Submission
+User submits:
+- Target URL
+- Data type
+- Number of pages
+- Headless mode
+
+Frontend sends:
+
+
+---
+
+### 2️⃣ Backend Processing
+Backend:
+- Generates unique job ID
+- Simulates scraping process
+- Calculates mock data quality score
+- Stores job in memory
+
+---
+
+### 3️⃣ Status Tracking
+
+Frontend polls:
+
+
+Returns:
+- Progress percentage
+- Records extracted
+- Completion status
+
+---
+
+### 4️⃣ View Results
+
+Displays all previously submitted jobs with pagination support.
+
+---
+
+## 🏗 Tech Stack
+
+### Frontend
+- React
+- TypeScript
+- Vite
+- Axios
+- Tailwind CSS
+- Framer Motion
+
+### Backend
+- FastAPI
+- Uvicorn
+- Pydantic
+- Python 3.11+
+
+---
+
+## 🔌 Integrations
+
+- Swagger API documentation (`/docs`)
+- RESTful contract-driven API
+- Axios service layer for structured requests
+- CORS-enabled frontend-backend communication
+- Modular backend route architecture
+
+---
+
+## 📂 Project Structure
+
+Dynamic-Web-Scraper/
+│
+├── frontend/
+│ ├── src/
+│ ├── components/
+│ ├── pages/
+│ └── services/api.ts
+│
+├── backend/
+│ ├── main.py
+│ └── requirements.txt
+│
+└── README.md
+
+
+---
+
+## 🚀 Getting Started
+
+### Backend
 
 ```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate   # Windows
 pip install -r requirements.txt
-```
+python -m uvicorn main:app --reload --port 8000
 
-### 2. Set up environment variables
+API Docs:
 
-```bash
-cp .env.example .env
-# Edit .env and fill in your values
-```
+http://localhost:8000/docs
 
-### 3. Run a scrape
+Frontend
+cd frontend
+npm install
+npm run dev
 
-```bash
-python execution/scrape_single_site.py --url https://example.com --output .tmp/result.json
-```
+Frontend:
 
----
+http://localhost:3000
 
-## How It Works
 
-1. **Directives** (`directives/`) define the SOP for each type of task — inputs, outputs, scripts to use, and edge cases.
-2. **The AI agent** reads the relevant directive, selects the right script, handles errors, and updates directives as it learns.
-3. **Execution scripts** (`execution/`) do the actual work deterministically — no hallucination, no guessing.
 
----
+🧠 Current Version
 
-## Adding New Capabilities
+This version uses a mock scraping engine for testing the full-stack workflow.
 
-1. Create a new script in `execution/your_script.py`
-2. Create a matching directive in `directives/your_directive.md` documenting inputs, outputs, and edge cases
-3. The AI agent will discover and use it automatically
+🛣 Roadmap
 
----
+ Replace mock engine with Selenium execution
 
-## File Organization Rules
+ Add CSV file generation
 
-| Location | Purpose |
-|---|---|
-| `directives/` | Markdown SOPs — living documents, improved over time |
-| `execution/` | Python tools — deterministic, well-commented |
-| `.tmp/` | All intermediate/temporary files — safe to delete |
-| `.env` | Secrets & API keys — **never commit** |
-| `credentials.json` | Google OAuth — **never commit** |
+ Add database persistence (PostgreSQL)
 
----
+ Add background job queue
 
-## Tech Stack
+ Add authentication
 
-- **Scraping**: `requests`, `BeautifulSoup4`, `Playwright` (for JS-heavy sites)
-- **Web App** (optional): Next.js + React + Tailwind CSS (frontend), FastAPI (backend)
-- **Environment**: `python-dotenv`
+ Dockerize application
+
+ Deploy production version
+
+
+
+📌 Future Vision
+
+This project is designed to evolve into:
+
+A structured scraping SaaS platform
+
+A scalable data validation engine
+
+A distributed scraping microservice system
+
+
+👨‍💻 Author
+
+Ankit Kumar
+arsonnick349@gmail.com
+arsonic-dev
+Full-stack system built for structured scraping automation and API-driven architecture learning.
