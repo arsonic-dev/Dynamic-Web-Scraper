@@ -25,12 +25,7 @@ export default function JobHistory() {
     const fetchHistory = async (cur?: string) => {
         setLoading(true); setError(null)
         try {
-            const res = await getHistory({
-                limit: 10,
-                cursor: cur,
-                status: statusFilter || undefined,
-                data_type: typeFilter || undefined,
-            })
+            const res = await getHistory()
             setData(res)
         } catch {
             setError('Failed to load job history. Make sure the backend is running.')
