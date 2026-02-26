@@ -1,3 +1,4 @@
+import type { ReactNode } from "react"
 import { motion } from 'framer-motion'
 import { Activity, Clock, FileStack, CheckCircle, XCircle, Loader2 } from 'lucide-react'
 import { useScraperStore } from '@/store/useScraperStore'
@@ -5,7 +6,10 @@ import { type JobStatus } from '@/services/api'
 import { cn } from '@/lib/utils'
 import { formatDate } from '@/lib/utils'
 
-const STATUS_CONFIG: Record<JobStatus, { label: string; color: string; icon: JSX.Element }> = {
+const STATUS_CONFIG: Record<
+  JobStatus,
+  { label: string; color: string; icon: React.ReactNode }
+> = {
     pending: { label: 'Pending', color: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20', icon: <Loader2 className="w-3 h-3 animate-spin" /> },
     running: { label: 'Running', color: 'text-blue-400 bg-blue-400/10 border-blue-400/20', icon: <Activity className="w-3 h-3" /> },
     completed: { label: 'Completed', color: 'text-green-400 bg-green-400/10 border-green-400/20', icon: <CheckCircle className="w-3 h-3" /> },
