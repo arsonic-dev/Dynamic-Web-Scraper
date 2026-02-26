@@ -9,7 +9,7 @@ import axios, { AxiosError } from "axios"
 // Axios instance (hardcoded for dev stability)
 // ---------------------------------------------------
 const api = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: baseURL: import.meta.env.VITE_API_BASE_URL,
     timeout: 30000,
     headers: { "Content-Type": "application/json" },
 })
